@@ -82,7 +82,16 @@ app.post("/register",(req,res) => {
       res.redirect("/register");
     }else{
       passport.authenticate("local")(req,res,() => {
-        res.redirect("/bitter/"+req.user.id);
+        var tweetId = {
+          userId:req.user.id
+        };
+        Tweet.create(tweetId,(err,status) => {
+          if(err){
+            console.log(err);
+          }else{
+            res.redirect("/bitter/"+req.user.id);
+          }
+        });
       });
     }
   });
@@ -105,15 +114,27 @@ app.post("/login",(req,res)=>{
   });
 });
 
+// app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
+//    var tweet = {
+//      content:req.body.tweet,
+//      userId:req.user._id
+//    }
+//    Tweet.create(tweet,(err,result) => {
+//       if(err){console.log(err);}
+//       else{console.log(result);res.redirect("/bitter/"+req.user._id);}
+//   });
+// });
+
 app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
-   var tweet = {
-     content:req.body.tweet,
-     userId:req.user._id
-   }
-   Tweet.create(tweet,(err,result) => {
-      if(err){console.log(err);}
-      else{console.log(result);res.redirect("/bitter/"+req.user._id);}
-  });
+   const tweet = req.body.tweet;
+
+   Tweet.updateOne({userId:req.user.id},{$push: {content:tweet}},(err) => {
+     if(err){
+       console.log(err);
+     }else{
+      console.log("done");
+     }
+   });
 });
 
 
