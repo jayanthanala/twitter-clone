@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+  <% if(user.id){ %>
+    <h1><%=user.name%></h1>
+    <p><%=user.email%></p>
+  <%}%>
+
+  <form class="" action="/bitter/<%=user.id%>/tweets" method="post">
+    <input type="text" name="tweet" value="" placeholder="What's around you......?">
+    <button type="submit" name="button">Tweet</button>
+  </form>
+
+  <% if(!tweet.userId){ %>
+  <%  tweet.forEach(function(cont){ %>
+      <hr>
+      <div class="">
+        <% console.log(cont.content)%>
+        <p><%=cont.content%></p>
+      </div>
+      <hr>
+  <%  }); %>
+  <%}else{ %>
+    <div class="">hey</div>
+  <% }%>
+
+
+
+
+
+
+
+<%- include('partials/footer') %>
