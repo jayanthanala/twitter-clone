@@ -41,15 +41,16 @@ app.get("/login",(req,res) => {
 });
 
 app.get("/bitter/:id",authenticated,(req,res) => {
-  User.findOne({_id:req.user._id},(err, foundUser) => {
+  User.findOne({_id:req.user.id},(err, foundUser) => {
     if(err){console.log(err);}
     else{
-      Tweet.find({userId:req.user._id},(err,foundTweet) => {
+      Tweet.find({userId:req.user.id},(err,foundTweet) => {
         if(err){console.log(err);}
         else{
           if(foundTweet){
-            //console.log(foundTweet);
-            res.render("userindex",{user:foundUser,tweet:foundTweet.reverse()});
+            var tweets = foundTweet[0].content.reverse();
+            console.log(tweets);
+            res.render("userindex",{user:foundUser,tweet:tweets});
           }
         }
       });
@@ -114,17 +115,6 @@ app.post("/login",(req,res)=>{
   });
 });
 
-// app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
-//    var tweet = {
-//      content:req.body.tweet,
-//      userId:req.user._id
-//    }
-//    Tweet.create(tweet,(err,result) => {
-//       if(err){console.log(err);}
-//       else{console.log(result);res.redirect("/bitter/"+req.user._id);}
-//   });
-// });
-
 app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
    const tweet = req.body.tweet;
 
@@ -132,7 +122,7 @@ app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
      if(err){
        console.log(err);
      }else{
-      console.log("done");
+      res.redirect("/bitter/:id");
      }
    });
 });
@@ -154,7 +144,7 @@ function authenticated(req,res,next){
   }
   else {
     //console.log("not authenticated");
-    res.redirect('login');
+    res.redirect('/login');
     }
 }
 
