@@ -19,11 +19,10 @@
     <input type="text" name="tweet" value="" placeholder="What's around you......?">
     <button type="submit" name="button">Tweet</button>
   </form>
-
-
-
+  
+<!-- only tweets wont be false! tweets[0] will give false ! -->
+<% if(tweets[0]){%>
   <% tweets.forEach((tweet) => { %>
-     <% if(tweet.userId === user.id){ %>
       <hr>
       <div class="">
         <p><%=tweet.content%></p>
@@ -35,11 +34,10 @@
           <button type="button" name="button" value=<%=tweet._id%>>Update</button>
       </form>
       <hr>
-  <% }else{ %>
-      <h4>No tweets yet!</h4>
-  <%  }%>
   <%})%>
-
+<%}else{ %>
+  <h4>No tweets found!</h4>
+<% }%>
 
 
 
