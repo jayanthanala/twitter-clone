@@ -11,18 +11,40 @@
     <p><%=user.email%></p>
   <%}%>
 
+
+
+  <a href="/logout" class="btn btn-small">Logout</a>
+
   <form class="" action="/bitter/<%=user.id%>/tweets" method="post">
     <input type="text" name="tweet" value="" placeholder="What's around you......?">
     <button type="submit" name="button">Tweet</button>
   </form>
 
-  <%  tweet.forEach(function(cont){ %>
+
+
+  <% tweets.forEach((tweet) => { %>
+     <% if(tweet.userId === user.id){ %>
       <hr>
       <div class="">
-        <p><%=cont%></p>
+        <p><%=tweet.content%></p>
       </div>
+      <form class="" action="/delete" method="post">
+          <button type="submit" name="button" value="<%=tweet._id%>">Delete</button>
+      </form>
+      <form class="" action="/delete" method="post">
+          <button type="button" name="button" value=<%=tweet._id%>>Update</button>
+      </form>
       <hr>
-  <%  }); %>
+  <% }else{ %>
+      <h4>No tweets yet!</h4>
+  <%  }%>
+  <%})%>
+
+
+
+
+
+
 
 
 

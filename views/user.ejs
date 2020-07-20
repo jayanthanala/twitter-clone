@@ -18,10 +18,10 @@
 
 
 
-  <%  tweet.forEach(function(cont){ %>
+  <%  tweets.forEach((tweet) => { %>
       <hr>
       <div class="">
-        <p><%=cont%></p>
+        <p><%=tweet.content%></p>
       </div>
       <hr>
   <%  }); %>

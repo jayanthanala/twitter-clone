@@ -1,13 +1,13 @@
 <%- include('partials/header') %>
 
-<% if(user.id){ %>
-  <h1><%=user.name%>'s Feed</h1>
-<%}%>
 
-<%  tweet.forEach(function(cont){ %>
+  <h1><%=user.name%>'s Feed</h1>
+  <h4>Recent Tweets from followers</h4>
+
+<% tweets.forEach(function(tweet){ %>
     <hr>
     <div class="">
-      <p><%=cont%></p>
+      <p><%=tweet.content%></p>
     </div>
     <hr>
 <%  }); %>

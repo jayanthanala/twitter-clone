@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const User = require("./schema/user");
-const Tweet = require("./schema/tweet");
+const Tweet = require("./schema/tweets");
 const Follow = require("./schema/tweet");
 
 app.use(express.static('public'));
@@ -45,44 +45,37 @@ app.get("/login",(req,res) => {
   res.render("login");
 });
 
+
+
 app.get("/bitter/:id",authenticated,(req,res) => {
-  User.findOne({_id:req.user.id},(err, foundUser) => {
+  Tweet.find({userId:req.user.id},(err, foundTweets) => {
     if(err){console.log(err);}
     else{
-      Tweet.find({userId:req.user.id},(err,foundTweet) => {
-        if(err){console.log(err);}
-        else{
-          if(foundTweet){
-            var tweets = foundTweet[0].content.reverse();
-            console.log(tweets);
-            res.render("userindex",{user:foundUser,tweet:tweets});
-          }
-        }
-      });
+      res.render("userindex",{user:req.user,tweets:foundTweets.reverse()});
     }
   });
 });
 
 app.get("/feed",authenticated,(req,res) => {
-  User.find({_id:req.user.id},(err,foundData) => {
+  User.find({_id:req.user.id},(err,foundUser) => {
     if(err){console.log(err);}
     else{
-      console.log(foundData[0].followers);
-      var followers = foundData[0].followers;
-      Tweet.findMany({userId: followers},(err,foundTweets) => {
+      console.log(foundUser);
+      Tweet.find({userId:foundUser[0].followers},(err,foundTweets) => {
         if(err){console.log(err);}
         else{
-          console.log(foundTweets[0].content);
+          res.render("feed",{user:foundUser[0],tweets:foundTweets.reverse()});
         }
       });
     }
   });
 });
 
-app.get("/logout",(req,res)=>{
+app.get("/logout",(req,res) => {
   req.logout();
-  res.redirect("/");
+  res.redirect("/")
 });
+
 
 
 
@@ -110,16 +103,7 @@ app.post("/register",(req,res) => {
       res.redirect("/register");
     }else{
       passport.authenticate("local")(req,res,() => {
-        var tweetId = {
-          userId:req.user.id
-        };
-        Tweet.create(tweetId,(err,status) => {
-          if(err){
-            console.log(err);
-          }else{
-            res.redirect("/bitter/"+req.user.id);
-          }
-        });
+        res.redirect("/bitter/"+req.user.id);
       });
     }
   });
@@ -143,13 +127,17 @@ app.post("/login",(req,res)=>{
 });
 
 app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
-   const tweet = req.body.tweet;
+   const tweet = {
+     content:req.body.tweet,
+     userHead:req.user.name,
+     userId:req.user.id
+   }
 
-   Tweet.updateOne({userId:req.user.id},{$push: {content:tweet}},(err) => {
+   Tweet.create(tweet,(err,status) => {
      if(err){
        console.log(err);
      }else{
-      res.redirect("/bitter/:id");
+       res.redirect("/bitter/"+req.user.id);
      }
    });
 });
@@ -174,15 +162,23 @@ app.post("/search",authenticated,(req,res) => {
       Tweet.find({userId:foundUser._id},(err,foundTweet) => {
         if(err){console.log(err);}
         else{
-          if(foundTweet){
-            var tweets = foundTweet[0].content.reverse();
-            //console.log(tweets);
-            res.render("user",{user:foundUser,tweet:tweets})
-          }
+            console.log(foundTweet);
+            res.render("user",{user:foundUser,tweets:foundTweet.reverse()})
         }
       });
     }
   });
+});
+
+app.post("/delete",authenticated,(req,res) =>{
+  Tweet.deleteOne({_id:req.body.button},(err,suc) => {
+    if(err){
+      console.log(err);
+    }else{
+      //console.log("deleted");
+      res.redirect("/bitter/"+req.user.id);
+    }
+  })
 });
 
 
