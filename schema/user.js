@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   name:String,
   email:String,
   password:String,
+  followers:[{type:String}]
 });
 
 userSchema.plugin(passlm)

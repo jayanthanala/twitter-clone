@@ -8,6 +8,7 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const User = require("./schema/user");
 const Tweet = require("./schema/tweet");
+const Follow = require("./schema/tweet");
 
 app.use(express.static('public'));
 app.set('view engine','ejs');
@@ -29,8 +30,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/",(req,res) => {
-  res.render("landing");
+  res.render("login");
 });
+
+app.get("/profile",(req,res) => {
+  res.render("profile")
+})
 
 app.get("/register",(req,res) => {
   res.render("register");
@@ -57,6 +62,24 @@ app.get("/bitter/:id",authenticated,(req,res) => {
     }
   });
 });
+
+app.get("/feed",authenticated,(req,res) => {
+  User.find({_id:req.user.id},(err,foundData) => {
+    if(err){console.log(err);}
+    else{
+      console.log(foundData[0].followers);
+      var followers = foundData[0].followers;
+      Tweet.findMany({userId: followers},(err,foundTweets) => {
+        if(err){console.log(err);}
+        else{
+          console.log(foundTweets[0].content);
+        }
+      });
+    }
+  });
+});
+
+
 
 
 
@@ -125,6 +148,37 @@ app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
       res.redirect("/bitter/:id");
      }
    });
+});
+
+app.post("/follow",(req,res) => {
+  var friendId = req.body.button;
+  User.updateOne({_id:req.user.id},{$push: {followers:friendId}},(err) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log("pushed");
+    }
+  })
+});
+
+app.post("/search",authenticated,(req,res) => {
+  var searchedName = req.body.username;
+  User.findOne({username: searchedName},(err,foundUser) => {
+    if(err){console.log(err);}
+    else{
+      console.log(foundUser);
+      Tweet.find({userId:foundUser._id},(err,foundTweet) => {
+        if(err){console.log(err);}
+        else{
+          if(foundTweet){
+            var tweets = foundTweet[0].content.reverse();
+            //console.log(tweets);
+            res.render("user",{user:foundUser,tweet:tweets})
+          }
+        }
+      });
+    }
+  });
 });
 
 

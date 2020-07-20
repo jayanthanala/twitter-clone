@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<% if(user.id){ %>
+  <h1><%=user.name%>'s Feed</h1>
+<%}%>
+
+<%  tweet.forEach(function(cont){ %>
+    <hr>
+    <div class="">
+      <p><%=cont%></p>
+    </div>
+    <hr>
+<%  }); %>
+
+<%- include('partials/footer') %>
