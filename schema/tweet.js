@@ -1,3 +1,5 @@
+///Another version of tweet schema. 
+
 const mongoose = require('mongoose');
 
 const tweetSchema = new mongoose.Schema({
