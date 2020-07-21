@@ -51,12 +51,12 @@ app.get("/bitter/:id",authenticated,(req,res) => {
   Tweet.find({userId:req.user.id},(err, foundTweets) => {
     if(err){console.log(err);}
     else{
-      res.render("userindex",{user:req.user,tweets:foundTweets.reverse()});
+      res.render("account",{user:req.user,tweets:foundTweets.reverse()});
     }
   });
 });
 
-app.get("/feed",authenticated,(req,res) => {
+app.get("/:id/feed",authenticated,(req,res) => {
   User.find({_id:req.user.id},(err,foundUser) => {
     if(err){console.log(err);}
     else{
@@ -103,7 +103,7 @@ app.post("/register",(req,res) => {
       res.redirect("/register");
     }else{
       passport.authenticate("local")(req,res,() => {
-        res.redirect("/bitter/"+req.user.id);
+        res.redirect(req.user.id+"/feed");
       });
     }
   });
@@ -120,7 +120,7 @@ app.post("/login",(req,res)=>{
     }
     else{
       passport.authenticate("local")(req,res,() => {
-        res.redirect("/bitter/"+req.user._id);
+        res.redirect(req.user.id+"/feed");
       });
     }
   });
@@ -159,7 +159,7 @@ app.post("/search",authenticated,(req,res) => {
     if(err){console.log(err);}
     else{
       console.log(foundUser);
-      Tweet.find({userId:foundUser._id},(err,foundTweet) => {
+      Tweet.find({userId:foundUser.id},(err,foundTweet) => {
         if(err){console.log(err);}
         else{
             console.log(foundTweet);
