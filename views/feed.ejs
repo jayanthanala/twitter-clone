@@ -1,15 +1,61 @@
 <%- include('partials/header') %>
 
 
-  <h1><%=user.name%>'s Feed</h1>
-  <h4>Recent Tweets from followers</h4>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Twitter Clone</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/<%=user.id%>/feed">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bitter/<%=user.id%>">My Account</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
+          <a class="dropdown-item" href="#">Another action</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="post" action="/search">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="username" value="">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="button">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2><%=user.name%>'s Feed</h2>
+<p>Recent Tweets from followers</p>
 
 <% tweets.forEach(function(tweet){ %>
-    <hr>
-    <div class="">
-      <p><%=tweet.content%></p>
-    </div>
-    <hr>
+<hr>
+<div class="">
+  <h4><%=tweet.userHead%></h4>
+  <p><%=tweet.content%></p>
+</div>
+<hr>
 <%  }); %>
 
 <%- include('partials/footer') %>

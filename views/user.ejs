@@ -1,35 +1,240 @@
-<%- include('partials/header') %>
-
-<div class="">
-  <form class="" action="/search" method="post">
-    <input type="text" name="username" value="">
-    <button type="submit" name="button">Search</button>
-  </form>
-</div>
-
-  <% if(user.id){ %>
-    <h1><%=user.name%></h1>
-    <p><%=user.email%></p>
-  <%}%>
-
-  <form class="" action="/follow" method="post">
-    <button type="submit" name="button" value="<%=user.id%>">Follow</button>
-  </form>
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title><%=user.name%> | Bitter</title>
 
 
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css'>
+  <!-- Custom css-->
+  <link rel="stylesheet" href="/css/user.css">
 
-  <%  tweets.forEach((tweet) => { %>
-      <hr>
-      <div class="">
-        <p><%=tweet.content%></p>
+
+</head>
+
+<body>
+  <!-- Fixed top navbar -->
+<nav class="navbar navbar-toggleable-md fixed-top">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse container">
+    <!-- Navbar navigation links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/<%=user.id%>/feed"><i class="octicon octicon-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bitter/<%=user.id%>"><i class="octicon octicon-zap"></i> My Account</a>
+      </li>
+    </ul>
+    <!-- END: Navbar navigation links -->
+    <!-- Navbar Search form -->
+    <form class="navbar-form" role="search" method="post" action="/search">
+      <div class="input-group">
+        <input type="text" class="form-control input-search" placeholder="Search Twitter" name="username" id="srch-term">
+        <div class="input-group-btn">
+          <button class="btn btn-default btn-search" type="submit"><i class="octicon octicon-search navbar-search-icon"></i></button>
+        </div>
       </div>
-      <hr>
-  <%  }); %>
+    </form>
+    <!-- END: Navbar Search form -->
+    <!-- Navbar User menu -->
+    <div class="dropdown navbar-user-dropdown">
+      <button class="btn btn-secondary dropdown-toggle btn-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/bitter/<%=user.id%>">My Account</a>
+        <a class="dropdown-item" href="/logout">Logout</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+    <!-- END: Navbar User menu -->
+
+  </div>
+</nav>
+<!-- END: Fixed top navbar -->
+<div class="main-container">
+  <!-- Profile background large image -->
+  <div class="row profile-background">
+    <div class="container">
+	  <!-- User main avatar -->
+      <div class="avatar-container">
+        <div class="avatar">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar profile-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col-6">
+          <ul>
+            <li class="profile-stats-item-active">
+              <a>
+                <span class="profile-stats-item profile-stats-item-label">Tweets</span>
+                <span class="profile-stats-item profile-stats-item-number"><%=tweets.length%></span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="profile-stats-item profile-stats-item-label">Following</span>
+                <span class="profile-stats-item profile-stats-item-number">420</span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="profile-stats-item profile-stats-item-label">Followers</span>
+                <span class="profile-stats-item profile-stats-item-number"><%=user.followers.length%></span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="profile-stats-item profile-stats-item-label">Likes</span>
+                <span class="profile-stats-item profile-stats-item-number">241</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container main-content">
+    <div class="row">
+      <div class="col profile-col">
+        <!-- Left column -->
+        <div class="profile-header">
+          <!-- Header information -->
+          <h3 class="profile-fullname"><a><%=user.name%><a></h3>
+          <h2 class="profile-element"><a>@<%=user.username%></a></h2>
+          <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-link"></i>&nbsp;<%=user.email%></a>
+          <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-location"></i>&nbsp;Vitoria-Gasteiz, Spain</a>
+          <form class="" action="/follow" method="post">
+            <button class="btn btn-search-bar tweet-to-btn" type="submit" name="button" value="<%=user.id%>">Follow</button>
+          </form>
+
+        </div>
+      </div>
+      <!-- End; Left column -->
+      <!-- Center content column -->
+      <div class="col-6">
+        <ol class="tweet-list">
+          <% if(tweets[0]){%>
+            <% tweets.forEach((tweet) => { %>
+              <li class="tweet-card">
+                <div class="tweet-content">
+                  <div class="tweet-header">
+                    <span class="fullname">
+                      <strong><%=tweet.userHead%></strong>
+                    </span>
+                    <span class="username">@JonVadillo</span>
+                    <span class="tweet-time">- Jul 18</span>
+
+                  </div>
+                  <a>
+                    <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                  </a>
+                  <div class="tweet-text">
+                    <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
+                      <a href="" class="twitter-hashtag" dir="ltr"></a>
+                    </p>
+                  </div>
+                  <div class="tweet-footer">
+                    <a class="tweet-footer-btn">
+                      <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
+                    </a>
+                    <a class="tweet-footer-btn">
+                      <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+                    </a>
+                    <a class="tweet-footer-btn">
+                      <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
+                    </a>
+                    <a class="tweet-footer-btn">
+                      <i class="octicon octicon-mail" aria-hidden="true"></i><span> 155</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
 
 
+            <%})%>
+          <%}else{ %>
+            <h4>No tweets found!</h4>
+          <% }%>
+
+        </ol>
+        <!-- End: tweet list -->
+      </div>
+      <!-- End: Center content column -->
+      <div class="col right-col">
+        <div class="content-panel">
+          <div class="panel-header">
+            <h4>Who to follow</h4>
+          </div>
+          <!-- Who to Follow panel -->
+          <div class="panel-content">
+            <!--Follow list -->
+            <ol class="tweet-list">
+              <li class="tweet-card">
+                <div class="tweet-content">
+                  <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                  <div class="tweet-header">
+                    <span class="fullname">
+                  <strong>Jon Vadillo</strong>
+                </span>
+                    <span class="username">@JonVadillo</span>
+                  </div>
+
+                  <button class="btn btn-follow">Follow</button>
+                </div>
+              </li>
+              <li class="tweet-card">
+                <div class="tweet-content">
+                  <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                  <div class="tweet-header">
+                    <span class="fullname">
+                  <strong>Jon Vadillo</strong>
+                </span>
+                    <span class="username">@JonVadillo</span>
+                  </div>
+
+                  <button class="btn btn-follow">Follow</button>
+                </div>
+              </li>
+              <li class="tweet-card">
+                <div class="tweet-content">
+                  <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                  <div class="tweet-header">
+                    <span class="fullname">
+                  <strong>Jon Vadillo</strong>
+                </span>
+                    <span class="username">@JonVadillo</span>
+                  </div>
+
+                  <button class="btn btn-follow">Follow</button>
+                </div>
+              </li>
+            </ol>
+            <!--END: Follow list -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
 
 
-
-
-
-<%- include('partials/footer') %>
+</body>
+</html>
