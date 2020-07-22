@@ -45,8 +45,6 @@ app.get("/login",(req,res) => {
   res.render("login");
 });
 
-
-
 app.get("/bitter/:id",authenticated,(req,res) => {
   Tweet.find({userId:req.user.id},(err, foundTweets) => {
     if(err){console.log(err);}
@@ -61,7 +59,7 @@ app.get("/:id/feed",authenticated,(req,res) => {
     if(err){console.log(err);}
     else{
       console.log(foundUser);
-      Tweet.find({userId:foundUser[0].followers},(err,foundTweets) => {
+      Tweet.find({userId:foundUser[0].following},(err,foundTweets) => {
         if(err){console.log(err);}
         else{
           res.render("feed",{user:foundUser[0],tweets:foundTweets.reverse()});
@@ -70,6 +68,10 @@ app.get("/:id/feed",authenticated,(req,res) => {
     }
   });
 });
+
+app.get("/search",authenticated,(req,res) =>{
+  console.log(req.body);
+})
 
 app.get("/logout",(req,res) => {
   req.logout();
@@ -95,7 +97,8 @@ app.post("/register",(req,res) => {
   var user = {
     username:req.body.username,
     name:req.body.fname,
-    email:req.body.email
+    email:req.body.email,
+    place:req.body.place
   }
   User.register(user,req.body.password,(err,user) => {
     if(err){
@@ -126,29 +129,55 @@ app.post("/login",(req,res)=>{
   });
 });
 
-app.post("/bitter/:id/tweets",authenticated,(req,res)=>{
+app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
+   var d = new Date();
+
    const tweet = {
      content:req.body.tweet,
      userHead:req.user.name,
-     userId:req.user.id
+     userId:req.user.id,
+     username:req.user.username,
+     date: d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
+     time: d.getHours()+":"+d.getMinutes()
    }
-
    Tweet.create(tweet,(err,status) => {
      if(err){
        console.log(err);
      }else{
-       res.redirect("/bitter/"+req.user.id);
+       //res.redirect("/bitter/"+req.user.id);
+       res.redirect('back');
      }
    });
 });
 
-app.post("/follow",(req,res) => {
+app.post("/:id/follow",authenticated,(req,res) =>{
+
+  if(req.user.id === req.params.id){
+    res.send("You cannot follow yourself");
+  }
+
+  User.findById(req.params.id,(err,user) => {
+    if(user.followers.filter(follower =>
+        follower.user.toString() === req.user.id ).length > 0){
+        return res.status(400).json({ alreadyfollow : "You already followed the user"})
+    }
+  })
+
+
+});
+
+app.post("/follow",authenticated,(req,res) => {
   var friendId = req.body.button;
-  User.updateOne({_id:req.user.id},{$push: {followers:friendId}},(err) => {
+  User.updateOne({_id:req.user.id},{$push: {following:friendId}},(err) => {
     if(err){
       console.log(err);
     }else{
-      console.log("pushed");
+      User.updateOne({_id:friendId},{$push: {followers:req.user.id}},(err) =>{
+        if(err){console.log(err);}
+        else{
+          res.redirect(req.user.id+"/feed");
+        }
+      });
     }
   })
 });
@@ -158,12 +187,12 @@ app.post("/search",authenticated,(req,res) => {
   User.findOne({username: searchedName},(err,foundUser) => {
     if(err){console.log(err);}
     else{
-      console.log(foundUser);
+      //console.log(foundUser);
       Tweet.find({userId:foundUser.id},(err,foundTweet) => {
         if(err){console.log(err);}
         else{
-            console.log(foundTweet);
-            res.render("user",{user:foundUser,tweets:foundTweet.reverse()})
+
+            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),status:"Follow"})
         }
       });
     }
@@ -175,7 +204,6 @@ app.post("/delete",authenticated,(req,res) =>{
     if(err){
       console.log(err);
     }else{
-      //console.log("deleted");
       res.redirect("/bitter/"+req.user.id);
     }
   })
