@@ -1,61 +1,199 @@
-<%- include('partials/header') %>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Feed | Bitter</title>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Twitter Clone</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css'>
+  <!-- Custom css-->
+  <link rel="stylesheet" href="/css/user.css">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/<%=user.id%>/feed">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/bitter/<%=user.id%>">My Account</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Options
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/logout">Logout</a>
-          <a class="dropdown-item" href="#">Another action</a>
+
+</head>
+
+<body>
+  <!-- Fixed top navbar -->
+  <nav class="navbar navbar-toggleable-md fixed-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse container">
+      <!-- Navbar navigation links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/<%=user.id%>/feed"><i class="octicon octicon-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/bitter/<%=user.id%>"><i class="octicon octicon-zap"></i> My Account</a>
+        </li>
+      </ul>
+      <!-- END: Navbar navigation links -->
+      <!-- Navbar Search form -->
+      <form class="navbar-form" role="search" method="post" action="/search">
+        <div class="input-group">
+          <input type="text" class="form-control input-search" placeholder="Search Twitter" name="username" id="srch-term">
+          <div class="input-group-btn">
+            <button class="btn btn-default btn-search" type="submit"><i class="octicon octicon-search navbar-search-icon"></i></button>
+          </div>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" method="post" action="/search">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="username" value="">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="button">Search</button>
-    </form>
-  </div>
-</nav>
+      </form>
+      <!-- END: Navbar Search form -->
+      <!-- Navbar User menu -->
+      <div class="dropdown navbar-user-dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/bitter/<%=user.id%>">My Account</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+      <!-- END: Navbar User menu -->
+
+    </div>
+  </nav>
+  <!-- END: Fixed top navbar -->
+  <div class="main-container">
+    <!-- Profile background large image -->
+
+
+
+    <div class="container main-content">
+      <div class="row">
+        <div class="col profile-col">
+          <!-- Left column -->
+          <div class="profile-header">
+            <!-- Header information -->
+            <h3 class="profile-fullname"><a><%=user.name%><a></h3>
+            <h2 class="profile-element"><a>@<%=user.username%></a></h2>
 
 
 
 
 
 
+          </div>
+        </div>
+        <!-- End; Left column -->
+        <!-- Center content column -->
+        <div class="col-6">
+          <ol class="tweet-list">
+            <li class="tweet-card">
+              <div class="tweet-content">
+                <div class="tweet-header">
+                  <span class="fullname">
+                    <strong><%=user.name%></strong>
+                  </span>
 
 
+                </div>
+                <a>
+                  <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
+                </a>
+                <div class="tweet-text">
+                  <form class="" action="/bitter/<%=user.id%>/newtweet" method="post">
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1"></label>
+                      <textarea placeholder="What's happening around you.....?" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
+                    </div>
+                    <button type="submit" name="button" class="btn btn-follow">Tweet</button>
+                  </form>
+                </div>
+
+              </div>
+            </li>
+            <% if(tweets[0]){%>
+            <% tweets.forEach((tweet) => { %>
+            <li class="tweet-card">
+              <div class="tweet-content">
+                <div class="tweet-header">
+                  <span class="fullname">
+                    <strong><%=tweet.userHead%></strong>
+                  </span>
+                  <span class="username">@<%=tweet.username%></span>
+                  <span class="tweet-time">- <%=tweet.date%> <%=tweet.time%></span>
+
+                </div>
+                <a>
+                  <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                </a>
+                <div class="tweet-text">
+                  <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
+                    <a href="" class="twitter-hashtag" dir="ltr"></a>
+                  </p>
+                </div>
+                <div class="tweet-footer">
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+                  </a>
+                  <a class="tweet-footer-btn">
+                    <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
+                  </a>
+
+                </div>
+              </div>
+            </li>
 
 
+            <%})%>
+            <%}else{ %>
+
+            <li class="tweet-card">
+              <div class="tweet-content">
+                <div class="tweet-text">
+                  <p class="" lang="es" data-aria-label-part="0">
+                    <h4 style="text-align:center">No tweets found!</h4>
+                </div>
+              </div>
+            </li>
+            <% }%>
+
+          </ol>
+          <!-- End: tweet list -->
+        </div>
+        <!-- End: Center content column -->
+        <div class="col right-col">
+          <div class="content-panel">
+            <div class="panel-header">
+              <h4>Followers</h4>
+            </div>
+            <!-- Who to Follow panel -->
+            <div class="panel-content">
+              <!--Follow list -->
+              <ol class="tweet-list">
+                <li class="tweet-card">
+                  <div class="tweet-content">
+                    <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                    <div class="tweet-header">
+                      <span class="fullname">
+                        <strong>Jon Vadillo</strong>
+                      </span>
+                      <span class="username">@JonVadillo</span>
+                    </div>
+                    <button class="btn btn-follow">Follow</button>
+                  </div>
+                </li>
 
 
-<h2><%=user.name%>'s Feed</h2>
-<p>Recent Tweets from followers</p>
+              </ol>
+              <!--END: Follow list -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src='https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
 
-<% tweets.forEach(function(tweet){ %>
-<hr>
-<div class="">
-  <h4><%=tweet.userHead%></h4>
-  <p><%=tweet.content%></p>
-</div>
-<hr>
-<%  }); %>
 
-<%- include('partials/footer') %>
+</body>
+
+</html>

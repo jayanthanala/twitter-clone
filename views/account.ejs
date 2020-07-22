@@ -96,12 +96,6 @@
                   <span class="profile-stats-item profile-stats-item-number"><%=user.followers.length%></span>
                 </a>
               </li>
-              <li>
-                <a>
-                  <span class="profile-stats-item profile-stats-item-label">Likes</span>
-                  <span class="profile-stats-item profile-stats-item-number">241</span>
-                </a>
-              </li>
             </ul>
           </div>
           <div class="col">
@@ -119,9 +113,9 @@
             <h3 class="profile-fullname"><a><%=user.name%><a></h3>
             <h2 class="profile-element"><a>@<%=user.username%></a></h2>
             <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-mail"></i>&nbsp;<%=user.email%></a>
-            <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-location"></i>&nbsp;Vitoria-Gasteiz, Spain</a>
-            <form class="" action="/follow" method="post">
-              <button class="btn btn-search-bar tweet-to-btn" type="submit" name="button" value="<%=user.id%>">Follow</button>
+            <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-location"></i>&nbsp;<%=user.place%></a>
+            <form class="" action="/" method="post">
+              <button class="btn btn-search-bar tweet-to-btn" type="submit" name="button" value="<%=user.id%>">Tweet</button>
             </form>
 
           </div>
@@ -133,14 +127,28 @@
             <li class="tweet-card">
               <div class="tweet-content">
                 <div class="tweet-header">
-                  <form class="" action="/bitter/<%=user.id%>/tweets" method="post">
-                    <input type="text" name="tweet" value="" placeholder="What's around you......?">
+                  <span class="fullname">
+                    <strong><%=user.name%></strong>
+                  </span>
+                  <span class="tweet-time">- Jul 18</span>
+
+                </div>
+                <a>
+                  <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
+                </a>
+                <div class="tweet-text">
+                  <form class="" action="/bitter/<%=user.id%>/newtweet" method="post">
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1"></label>
+                      <textarea placeholder="What's happening around you.....?" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
+                    </div>
                     <button type="submit" name="button" class="btn btn-follow">Tweet</button>
                   </form>
                 </div>
 
               </div>
             </li>
+
             <% if(tweets[0]){%>
             <% tweets.forEach((tweet) => { %>
             <li class="tweet-card">
@@ -154,7 +162,7 @@
 
                 </div>
                 <a>
-                  <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+                  <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
                 </a>
                 <div class="tweet-text">
                   <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
@@ -173,7 +181,7 @@
                   </a>
                   <a class="tweet-footer-btn">
                     <form class="" action="/delete" method="post">
-                        <button type="submit" name="button" value="<%=tweet._id%>"><i class="octicon octicon-trashcan" aria-hidden="true"></i></button>
+                      <button type="submit" name="button" value="<%=tweet._id%>"><i class="octicon octicon-trashcan" aria-hidden="true"></i></button>
                     </form>
                   </a>
                 </div>
@@ -193,7 +201,7 @@
         <div class="col right-col">
           <div class="content-panel">
             <div class="panel-header">
-              <h4>Who to follow</h4>
+              <h4>Following</h4>
             </div>
             <!-- Who to Follow panel -->
             <div class="panel-content">
