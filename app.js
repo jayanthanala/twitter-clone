@@ -23,13 +23,12 @@ app.use(passport.session());
 mongoose.connect("mongodb://localhost:27017/bitDB",{useNewUrlParser:true,useUnifiedTopology: true});
 mongoose.set("useCreateIndex",true);
 
-
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/",(req,res) => {
-  res.redirect("/login");
+  res.render("login");
 });
 
 app.get("/profile",(req,res) => {
@@ -40,9 +39,6 @@ app.get("/register",(req,res) => {
   res.render("register");
 });
 
-app.get("/login",(req,res) => {
-  res.render("login");
-});
 
 app.get("/bitter/:id",authenticated,(req,res) => {
   Tweet.find({userId:req.user.id},(err, foundTweets) => {
@@ -68,9 +64,21 @@ app.get("/:id/feed",authenticated,(req,res) => {
   });
 });
 
-app.get("/search",authenticated,(req,res) =>{
-  console.log(req.body);
-})
+app.get("/search",authenticated,(req,res) => {
+  var searchedName = req.query.username;
+  User.findOne({username: searchedName},(err,foundUser) => {
+    if(err){console.log(err);}
+    else{
+      //console.log(foundUser);
+      Tweet.find({userId:foundUser.id},(err,foundTweet) => {
+        if(err){console.log(err);}
+        else{
+            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),mine:req.user.id})
+        }
+      });
+    }
+  });
+});
 
 app.get("/logout",(req,res) => {
   req.logout();
@@ -185,22 +193,7 @@ app.post("/unfollow",authenticated,(req,res) => {
   })
 });
 
-app.post("/search",authenticated,(req,res) => {
-  var searchedName = req.body.username;
-  User.findOne({username: searchedName},(err,foundUser) => {
-    if(err){console.log(err);}
-    else{
-      //console.log(foundUser);
-      Tweet.find({userId:foundUser.id},(err,foundTweet) => {
-        if(err){console.log(err);}
-        else{
 
-            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),mine:req.user.id})
-        }
-      });
-    }
-  });
-});
 
 app.post("/delete",authenticated,(req,res) =>{
   Tweet.deleteOne({_id:req.body.button},(err,suc) => {
@@ -229,7 +222,7 @@ function authenticated(req,res,next){
   }
   else {
     //console.log("not authenticated");
-    res.redirect('/login');
+    res.redirect('/');
     }
 }
 
