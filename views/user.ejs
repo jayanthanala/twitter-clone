@@ -114,9 +114,23 @@
             <h2 class="profile-element"><a>@<%=user.username%></a></h2>
             <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-link"></i>&nbsp;<%=user.email%></a>
             <a class="profile-element profile-website" hrerf=""><i class="octicon octicon-location"></i>&nbsp;<%=user.place%></a>
+            <% var follower = (user.followers).find((fol) => { %>
+            <%  return fol == mine %>
+            <%});%>
+
+      <%    if(follower){%>
+            <form class="" action="/follow" method="post">
+              <button class="btn btn-search-bar tweet-to-btn" type="submit" name="button" value="<%=user.id%>">Unfollow</button>
+            </form>
+        <%}else{%>
             <form class="" action="/follow" method="post">
               <button class="btn btn-search-bar tweet-to-btn" type="submit" name="button" value="<%=user.id%>">Follow</button>
             </form>
+          <%}%>
+
+
+
+
 
 
 
