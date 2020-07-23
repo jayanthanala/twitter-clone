@@ -1,0 +1,73 @@
+<ol class="tweet-list">
+  <li class="tweet-card">
+    <div class="tweet-content">
+      <div class="tweet-header">
+        <span class="fullname">
+          <strong><%=user.name%></strong>
+        </span>
+      </div>
+      <a>
+        <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
+      </a>
+      <div class="tweet-text">
+        <form class="" action="/bitter/<%=user.id%>/newtweet" method="post">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1"></label>
+            <textarea placeholder="What's happening around you.....?" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
+          </div>
+          <button type="submit" name="button" class="btn btn-follow">Tweet</button>
+        </form>
+      </div>
+
+    </div>
+  </li>
+  <% if(tweets[0]){%>
+  <% tweets.forEach((tweet) => { %>
+  <li class="tweet-card">
+    <div class="tweet-content">
+      <div class="tweet-header">
+        <span class="fullname">
+          <strong><%=tweet.userHead%></strong>
+        </span>
+        <span class="username">@<%=tweet.username%></span>
+        <span class="tweet-time">- <%=tweet.date%> <%=tweet.time%></span>
+
+      </div>
+      <a>
+        <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+      </a>
+      <div class="tweet-text">
+        <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
+          <a href="" class="twitter-hashtag" dir="ltr"></a>
+        </p>
+      </div>
+      <div class="tweet-footer">
+        <a class="tweet-footer-btn">
+          <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
+        </a>
+        <a class="tweet-footer-btn">
+          <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+        </a>
+        <a class="tweet-footer-btn">
+          <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
+        </a>
+
+      </div>
+    </div>
+  </li>
+
+
+  <%})%>
+  <%}else{ %>
+
+  <li class="tweet-card">
+    <div class="tweet-content">
+      <div class="tweet-text">
+        <p class="" lang="es" data-aria-label-part="0">
+          <h4 style="text-align:center">No tweets found!</h4>
+      </div>
+    </div>
+  </li>
+  <% }%>
+
+</ol>
