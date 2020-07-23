@@ -196,6 +196,21 @@ app.post("/follow",authenticated,(req,res) => {
   })
 });
 
+app.post("/unfollow",authenticated,(req,res) => {
+  var friendId = req.body.button;
+  User.updateOne({_id:req.user.id},{$pull: {following:friendId}},(err) => {
+    if(err){console.log(err);}
+    else{
+      User.updateOne({_id:friendId},{$pull: {followers:req.user.id}},(err) => {
+        if(err){console.log(err);}
+        else{
+          res.redirect('back');
+        }
+      });
+    }
+  })
+});
+
 app.post("/search",authenticated,(req,res) => {
   var searchedName = req.body.username;
   User.findOne({username: searchedName},(err,foundUser) => {
