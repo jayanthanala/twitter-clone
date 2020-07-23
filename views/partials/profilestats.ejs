@@ -1,0 +1,34 @@
+<nav class="navbar profile-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+
+      </div>
+      <div class="col-6">
+        <ul>
+          <li class="profile-stats-item-active">
+            <a>
+              <span class="profile-stats-item profile-stats-item-label">Tweets</span>
+              <span class="profile-stats-item profile-stats-item-number"><%=tweets.length%></span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="profile-stats-item profile-stats-item-label">Following</span>
+              <span class="profile-stats-item profile-stats-item-number"><%=user.following.length%></span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="profile-stats-item profile-stats-item-label">Followers</span>
+              <span class="profile-stats-item profile-stats-item-number"><%=user.followers.length%></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+</nav>
