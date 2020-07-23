@@ -80,7 +80,19 @@ app.get("/logout",(req,res) => {
 
 
 
+app.get("/test",(req,res) => {
+  var number =[1,56,3,23,16];
+  var star = number.find((num) => {
+    return num==98;
+  });
+  if(star){
+    console.log("exits");
+  }else{
+    console.log("nope");
+  }
+  //console.log(star);
 
+});
 
 
 
@@ -150,21 +162,22 @@ app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
    });
 });
 
-app.post("/:id/follow",authenticated,(req,res) =>{
-
-  if(req.user.id === req.params.id){
-    res.send("You cannot follow yourself");
-  }
-
-  User.findById(req.params.id,(err,user) => {
-    if(user.followers.filter(follower =>
-        follower.user.toString() === req.user.id ).length > 0){
-        return res.status(400).json({ alreadyfollow : "You already followed the user"})
-    }
-  })
-
-
-});
+// app.post("/:id/follow",authenticated,(req,res) =>{
+//
+//   if(req.user.id === req.params.id){
+//     res.send("You cannot follow yourself");
+//   }
+//
+//   User.findById(req.params.id,(err,user) => {
+//     if(user.followers.filter(follower =>
+//         follower.user.toString() === req.user.id ).length > 0){
+//         return res.status(400).json({ alreadyfollow : "You already followed the user"})
+//     }
+//   });
+//
+//
+//
+// });
 
 app.post("/follow",authenticated,(req,res) => {
   var friendId = req.body.button;
@@ -175,7 +188,8 @@ app.post("/follow",authenticated,(req,res) => {
       User.updateOne({_id:friendId},{$push: {followers:req.user.id}},(err) =>{
         if(err){console.log(err);}
         else{
-          res.redirect(req.user.id+"/feed");
+          res.redirect('back');
+          console.log("refresh");
         }
       });
     }
@@ -192,7 +206,7 @@ app.post("/search",authenticated,(req,res) => {
         if(err){console.log(err);}
         else{
 
-            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),status:"Follow"})
+            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),mine:req.user.id})
         }
       });
     }
