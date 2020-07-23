@@ -8,7 +8,6 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const User = require("./schema/user");
 const Tweet = require("./schema/tweets");
-const Follow = require("./schema/tweet");
 
 app.use(express.static('public'));
 app.set('view engine','ejs');
@@ -30,12 +29,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/",(req,res) => {
-  res.render("login");
+  res.redirect("/login");
 });
 
 app.get("/profile",(req,res) => {
   res.render("profile")
-})
+});
 
 app.get("/register",(req,res) => {
   res.render("register");
@@ -77,31 +76,6 @@ app.get("/logout",(req,res) => {
   req.logout();
   res.redirect("/")
 });
-
-
-
-app.get("/test",(req,res) => {
-  var number =[1,56,3,23,16];
-  var star = number.find((num) => {
-    return num==98;
-  });
-  if(star){
-    console.log("exits");
-  }else{
-    console.log("nope");
-  }
-  //console.log(star);
-
-});
-
-
-
-
-
-
-
-
-
 
 
 
