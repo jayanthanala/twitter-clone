@@ -1,26 +1,5 @@
-<ol class="tweet-list">
-  <li class="tweet-card">
-    <div class="tweet-content">
-      <div class="tweet-header">
-        <span class="fullname">
-          <strong><%=user.name%></strong>
-        </span>
-      </div>
-      <a>
-        <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
-      </a>
-      <div class="tweet-text">
-        <form class="" action="/bitter/<%=user.id%>/newtweet" method="post">
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1"></label>
-            <textarea placeholder="What's happening around you.....?" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
-          </div>
-          <button type="submit" name="button" class="btn btn-follow">Tweet</button>
-        </form>
-      </div>
 
-    </div>
-  </li>
+
   <% if(tweets[0]){%>
   <% tweets.forEach((tweet) => { %>
   <li class="tweet-card">
@@ -69,5 +48,3 @@
     </div>
   </li>
   <% }%>
-
-</ol>
