@@ -1,50 +1,51 @@
+<% if(tweets[0]){%>
+<% tweets.forEach((tweet) => { %>
+<li class="tweet-card">
+  <div class="tweet-content">
+    <div class="tweet-header">
+      <span class="fullname">
+        <strong><a href="/search?username=<%=tweet.username%>" style="color:black;" class="j"><%=tweet.userHead%></a></strong>
+      </span>
+      <span class="username">@<%=tweet.username%></span>
+      <span class="tweet-time">- <%=tweet.date%> <%=tweet.time%></span>
 
-
-  <% if(tweets[0]){%>
-  <% tweets.forEach((tweet) => { %>
-  <li class="tweet-card">
-    <div class="tweet-content">
-      <div class="tweet-header">
-        <span class="fullname">
-          <strong><%=tweet.userHead%></strong>
-        </span>
-        <span class="username">@<%=tweet.username%></span>
-        <span class="tweet-time">- <%=tweet.date%> <%=tweet.time%></span>
-
-      </div>
-      <a>
-        <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+    </div>
+    <a>
+      <img class="tweet-card-avatar" src="https://pbs.twimg.com/profile_images/679974972278849537/bzzb-6H4_bigger.jpg" alt="">
+    </a>
+    <div class="tweet-text">
+      <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
+        <a href="" class="twitter-hashtag" dir="ltr"></a>
+      </p>
+    </div>
+    <div class="tweet-footer">
+      <a class="tweet-footer-btn">
+        <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
       </a>
-      <div class="tweet-text">
-        <p class="" lang="es" data-aria-label-part="0"> <%=tweet.content%>
-          <a href="" class="twitter-hashtag" dir="ltr"></a>
-        </p>
-      </div>
-      <div class="tweet-footer">
-        <a class="tweet-footer-btn">
-          <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
-        </a>
-        <a class="tweet-footer-btn">
-          <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
-        </a>
-        <a class="tweet-footer-btn">
-          <i class="octicon octicon-heart" aria-hidden="true"></i><span> 202</span>
-        </a>
+      <a class="tweet-footer-btn">
+        <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
+      </a>
+      <a class="tweet-footer-btn">
 
-      </div>
+        <button type="submit" class="btn btn-outline-light">
+          <i class="octicon octicon-heart"></i> <span> 202</span>
+        </button>
+      </a>
+
     </div>
-  </li>
+  </div>
+</li>
 
 
-  <%})%>
-  <%}else{ %>
+<%})%>
+<%}else{ %>
 
-  <li class="tweet-card">
-    <div class="tweet-content">
-      <div class="tweet-text">
-        <p class="" lang="es" data-aria-label-part="0">
-          <h4 style="text-align:center">No tweets found!</h4>
-      </div>
+<li class="tweet-card">
+  <div class="tweet-content">
+    <div class="tweet-text">
+      <p class="" lang="es" data-aria-label-part="0">
+      <h4 style="text-align:center">No tweets found!</h4>
     </div>
-  </li>
-  <% }%>
+  </div>
+</li>
+<% }%>

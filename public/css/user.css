@@ -7,6 +7,11 @@ a {
   color: #1DA1F2;
 }
 
+.j:hover{
+  color: black;
+  text-decoration: none;
+}
+
 @media screen and (min-width: 1236px) {
   .container {
     width: 1190px;
@@ -64,11 +69,23 @@ a {
 }
 
 .navbar-form {
-  margin-right: 15px;
+  margin-right: 500px;
+}
+
+.dropdown-toggle::after {
+display: inline-block;
+width: 0;
+height: 0;
+margin-left: 0;
+vertical-align: middle;
+content: "";
+border-top: 0;
+border-right:0;
+border-left: 0;
 }
 
 .navbar-user-dropdown {
-  margin-right: 15px;
+  margin-right: 150px;
 }
 /* END: Top Navbar elements' styles */
 
@@ -108,7 +125,7 @@ a {
 .profile-stats ul {
   margin: 0;
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 230px
 }
 
 .profile-stats li {

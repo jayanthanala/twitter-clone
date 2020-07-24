@@ -27,6 +27,8 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+////////////////////////////////////////////////////////////////////   GETS    //////////////////////////////////////////////////////////////
+
 app.get("/",(req,res) => {
   res.render("login");
 });
@@ -51,12 +53,12 @@ app.get("/bitter/:id",authenticated,(req,res) => {
 
 app.get("/:id/feed",authenticated,(req,res) => {
   User.find({_id:req.user.id},(err,foundUser) => {
-    if(err){console.log(err);}
+    if(err){console.log(err);res.redirect('back');}
     else{
-      console.log(foundUser);
       Tweet.find({userId:foundUser[0].following},(err,foundTweets) => {
         if(err){console.log(err);}
         else{
+          //console.log(foundTweets);
           res.render("feed",{user:foundUser[0],tweets:foundTweets.reverse()});
         }
       });
@@ -66,18 +68,21 @@ app.get("/:id/feed",authenticated,(req,res) => {
 
 app.get("/search",authenticated,(req,res) => {
   var searchedName = req.query.username;
-  User.findOne({username: searchedName},(err,foundUser) => {
-    if(err){console.log(err);}
-    else{
-      //console.log(foundUser);
-      Tweet.find({userId:foundUser.id},(err,foundTweet) => {
-        if(err){console.log(err);}
-        else{
-            res.render("user",{user:foundUser,tweets:foundTweet.reverse(),mine:req.user.id})
-        }
-      });
-    }
-  });
+  if(req.query.username === req.user.username){
+    res.send("Dont search yourself fool.");
+  }else{
+    User.findOne({username: searchedName},(err,foundUser) => {
+      if(err){console.log(err);}
+      else{
+        Tweet.find({userId:foundUser.id},(err,foundTweet) => {
+          if(err){console.log(err);}
+          else{
+              res.render("user",{user:foundUser,tweets:foundTweet.reverse(),mine:req.user.id})
+          }
+        });
+      }
+    });
+  }
 });
 
 app.get("/logout",(req,res) => {
@@ -85,7 +90,7 @@ app.get("/logout",(req,res) => {
   res.redirect("/")
 });
 
-
+////////////////////////////////////////////////////////////////////   POSTS    //////////////////////////////////////////////////////////////
 
 app.post("/register",(req,res) => {
   var user = {
@@ -144,22 +149,6 @@ app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
    });
 });
 
-// app.post("/:id/follow",authenticated,(req,res) =>{
-//
-//   if(req.user.id === req.params.id){
-//     res.send("You cannot follow yourself");
-//   }
-//
-//   User.findById(req.params.id,(err,user) => {
-//     if(user.followers.filter(follower =>
-//         follower.user.toString() === req.user.id ).length > 0){
-//         return res.status(400).json({ alreadyfollow : "You already followed the user"})
-//     }
-//   });
-//
-//
-//
-// });
 
 app.post("/follow",authenticated,(req,res) => {
   var friendId = req.body.button;
@@ -171,7 +160,6 @@ app.post("/follow",authenticated,(req,res) => {
         if(err){console.log(err);}
         else{
           res.redirect('back');
-          console.log("refresh");
         }
       });
     }
@@ -192,6 +180,10 @@ app.post("/unfollow",authenticated,(req,res) => {
     }
   })
 });
+
+// app.post("/like",authenticated,(req,res) => {
+//   var post
+// });
 
 
 
@@ -221,7 +213,6 @@ function authenticated(req,res,next){
     next();
   }
   else {
-    //console.log("not authenticated");
     res.redirect('/');
     }
 }

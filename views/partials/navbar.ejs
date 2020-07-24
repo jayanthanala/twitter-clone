@@ -15,7 +15,7 @@
     </ul>
     <!-- END: Navbar navigation links -->
     <!-- Navbar Search form -->
-    <form class="navbar-form" role="search" method="get" action="/search">
+    <form class="navbar-form" role="search" method="put" action="/search">
       <div class="input-group">
         <input type="text" class="form-control input-search" placeholder="Search Twitter" name="username" id="srch-term">
         <div class="input-group-btn">
@@ -26,11 +26,10 @@
     <!-- END: Navbar Search form -->
     <!-- Navbar User menu -->
     <div class="dropdown navbar-user-dropdown">
-      <button class="btn btn-secondary dropdown-toggle btn-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/bitter/<%=user.id%>">My Account</a>
+      <button class="btn btn-secondary dropdown-toggle btn-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">⋮</button>
+      <div class="dropdown-menu" aria-labelledby="">
+        <a class="dropdown-item" href="/bitter/<%=user.id%>">Logged in as <%=user.name%></a>
         <a class="dropdown-item" href="/logout">Logout</a>
-        <a class="dropdown-item" href="#">Something else here</a>
       </div>
     </div>
     <!-- END: Navbar User menu -->
