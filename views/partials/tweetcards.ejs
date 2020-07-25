@@ -20,18 +20,25 @@
     </div>
     <div class="tweet-footer">
       <a class="tweet-footer-btn">
-        <i class="octicon octicon-comment" aria-hidden="true"></i><span> 18</span>
-      </a>
-      <a class="tweet-footer-btn">
-        <i class="octicon octicon-sync" aria-hidden="true"></i><span> 64</span>
-      </a>
-      <a class="tweet-footer-btn">
+      <%  var like = (tweet.likes).find((lt) => { %>
+         
+        <%  return lt == mine; %>
+      <%  }); %>
 
-        <button type="submit" class="btn btn-outline-light">
-          <i class="octicon octicon-heart"></i> <span> 202</span>
-        </button>
+      <%  if(like){ %>
+          <form class="" action="/unlike/<%=tweet._id%>" method="post">
+            <button type="submit" class="btn btn-outline-light">
+              <i class="octicon octicon-heart"></i> <span><%=tweet.likes.length%></span>
+            </button>
+          </form>
+      <%  }else{ %>
+          <form class="" action="/like/<%=tweet._id%>" method="post">
+            <button type="submit" class="btn btn-outline-light">
+              <i class="octicon octicon-heart"></i> <span><%=tweet.likes.length%></span>
+            </button>
+          </form>
+      <%  } %>
       </a>
-
     </div>
   </div>
 </li>
