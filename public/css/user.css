@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #1DA1F2;
+  color: #006a71;
 }
 
 .j:hover{
@@ -54,17 +54,17 @@ a {
 
 .btn-search-bar {
   border-radius: 100px;
-  border: 1px solid #1da1f2;
+  border: 1px solid #006a71;
   color: #fff;
-  background-color: #4AB3F4;
+  background-color: #006a71;
   border-color: transparent;
   font-weight: bold;
   font-size: 14px;
 }
 
 .btn-search-bar:hover{
-      background-color: #1DA1F2;
-    border-color: #1DA1F2;
+      background-color: #006a71;
+    border-color: #006a71;
   cursor:pointer;
 }
 
@@ -146,7 +146,7 @@ border-left: 0;
 .profile-stats-item-active {
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  border-color: #1DA1F2 !important;
+  border-color: #006a71 !important;
 }
 
 .profile-stats-item-label {
@@ -181,7 +181,7 @@ border-left: 0;
 }
 
 .profile-website {
-  color: #1DA1F2 !important;
+  color: #006a71 !important;
   cursor: pointer;
 }
 
@@ -269,10 +269,10 @@ border-left: 0;
 }
 
 .btn-follow {
-  border-color: #1DA1F2;
-  color: #1DA1F2;
+  border-color: #006a71;
+  color: #006a71;
   background-color: #fff;
-  border: 1px solid #1da1f2;
+  border: 1px solid #006a71;
   display: block;
   font-size: 12px;
   line-height: 16px;
