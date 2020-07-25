@@ -46,7 +46,7 @@ app.get("/bitter/:id",authenticated,(req,res) => {
   Tweet.find({userId:req.user.id},(err, foundTweets) => {
     if(err){console.log(err);}
     else{
-      res.render("account",{user:req.user,tweets:foundTweets.reverse()});
+      res.render("account",{user:req.user,tweets:foundTweets.reverse(),mine:req.user.id});
     }
   });
 });
@@ -59,7 +59,7 @@ app.get("/:id/feed",authenticated,(req,res) => {
         if(err){console.log(err);}
         else{
           //console.log(foundTweets);
-          res.render("feed",{user:foundUser[0],tweets:foundTweets.reverse()});
+          res.render("feed",{user:foundUser[0],tweets:foundTweets.reverse(),mine:req.user.id});
         }
       });
     }
@@ -183,9 +183,10 @@ app.post("/unfollow",authenticated,(req,res) => {
 
 app.post("/like/:tweetid",authenticated,(req,res) => {
   var tweetId = req.params.tweetid;
-  Tweet.updateOne({_id:tweetId},{$push:{likes:req.user.id},(err) => {
+  Tweet.updateOne({_id:tweetId},{$push:{likes:req.user.id}},(err) => {
     if(err){console.log(err);}
     else{
+
       res.redirect('back');
     }
   });
@@ -193,9 +194,10 @@ app.post("/like/:tweetid",authenticated,(req,res) => {
 
 app.post("/unlike/:tweetid",authenticated,(req,res) => {
   var tweetId = req.params.tweetid;
-  Tweet.updateOne({_id:tweetId},{$pull:{likes:req.user.id},(err) => {
+  Tweet.updateOne({_id:tweetId},{$pull:{likes:req.user.id}},(err) => {
     if(err){console.log(err);}
     else{
+      
       res.redirect('back');
     }
   });
