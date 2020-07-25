@@ -186,7 +186,6 @@ app.post("/like/:tweetid",authenticated,(req,res) => {
   Tweet.updateOne({_id:tweetId},{$push:{likes:req.user.id}},(err) => {
     if(err){console.log(err);}
     else{
-
       res.redirect('back');
     }
   });
@@ -197,7 +196,6 @@ app.post("/unlike/:tweetid",authenticated,(req,res) => {
   Tweet.updateOne({_id:tweetId},{$pull:{likes:req.user.id}},(err) => {
     if(err){console.log(err);}
     else{
-      
       res.redirect('back');
     }
   });
