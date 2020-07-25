@@ -1,4 +1,4 @@
-# twitter-clone :tweet:
+# twitter-clone 
 A twitter clone app, to create controversies 
 
 # License
