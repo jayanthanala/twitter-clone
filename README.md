@@ -1,11 +1,6 @@
 
-[![Contributors][contributors-shield]]https://github.com/jayanthanala/twitter-clone/graphs/contributors
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+[![Contributors][contributors-shield]](https://github.com/jayanthanala/twitter-clone/graphs/contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
