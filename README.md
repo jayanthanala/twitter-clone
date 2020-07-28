@@ -41,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)
+[![Product Name Screen Shot](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)
 
 A Basic Twitter App with User authentication, User Follow/Unfollow, Tweets, Like Buttons and much more. New Features are yet to be added soon. 
 **Image upload in the next update**
@@ -50,9 +50,9 @@ A Basic Twitter App with User authentication, User Follow/Unfollow, Tweets, Like
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [](Node)
+* [](Mongoose/MongoDB)
+* [](Passport.js)
 
 
 
