@@ -28,13 +28,14 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+  * [Credits](#Credits)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
+
 
 
 
@@ -53,6 +54,11 @@ A Basic Twitter App with User authentication, User Follow/Unfollow, Tweets, Like
 * Node
 * Mongoose/MongoDB
 * Passport.js
+
+## Credits
+
+* Front End  - [@jvadillo](https://github.com/jvadillo)
+* Tweaks - [@vishal-1408](https://github.com/vishal-1408)
 
 
 
@@ -113,11 +119,5 @@ Your Name - [@email](javaoneapl@gmail.com)
 Project Link: [https://github.com/jayanthanala/twitter-clone](https://github.com/jayanthanala/twitter-clone)
 
 
-
-<!-- ACKNOWLEDGEMENTS -->
-## Credits
-
-* Front End  - [@jvadillo](https://github.com/jvadillo)
-* Tweaks - [@vishal-1408](https://github.com/vishal-1408)
 
 
