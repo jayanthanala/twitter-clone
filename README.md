@@ -1,5 +1,5 @@
 
-[![Contributors][contributors-shield]][https://github.com/jayanthanala/twitter-clone/graphs/contributors]
+[![Contributors][contributors-shield]]https://github.com/jayanthanala/twitter-clone/graphs/contributors
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
