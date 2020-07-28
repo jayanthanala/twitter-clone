@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
-<!-- PROJECT LOGO -->
+
 <br />
 <p align="center">
   
@@ -23,7 +23,7 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
 * [About the Project](#about-the-project)
@@ -39,7 +39,7 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Name Screen Shot](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)
@@ -89,7 +89,7 @@ npm i
 nodemon app.js 
 ```
 
-<!-- CONTRIBUTING -->
+
 ## Contributing
 [![Contributors](https://img.shields.io/badge/Contributors-2-green.svg)](https://github.com/jayanthanala/twitter-clone/graphs/contributors)
 
@@ -103,7 +103,7 @@ Contributions are what make the open source community such an amazing place to b
 
 
 
-<!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
@@ -114,9 +114,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@email](javaoneapl@gmail.com)
+Your Name - [Mail](javaoneapl@gmail.com)
 
-Project Link: [https://github.com/jayanthanala/twitter-clone](https://github.com/jayanthanala/twitter-clone)
+Project Link: [Repo](https://github.com/jayanthanala/twitter-clone)
 
 
 
