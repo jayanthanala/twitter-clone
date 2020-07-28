@@ -15,7 +15,7 @@
     <a href="https://github.com/jayanthanala/twitter-clone"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="mini-twittercl.herokuapp.com">View Demo</a>
+    <a href="https://mini-twittercl.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/jayanthanala/twitter-clone/issues">Request Feature</a>
   </p>
@@ -31,8 +31,6 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
@@ -43,11 +41,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://i.ibb.co/n1Ykdx3/Screenshot-2020-07-28-at-22-12-38.png)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo`, `twitter_handle`, `email`
+A Basic Twitter App with User authentication, User Follow/Unfollow, Tweets, Like Buttons and much more. New Features are yet to be added soon. 
+**Image upload in the next update**
+`jayanthanala`, `twitter-clone`.
 
 
 ### Built With
