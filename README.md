@@ -1,5 +1,5 @@
 
-[![Contributors][contributors-shield]](https://github.com/jayanthanala/twitter-clone/graphs/contributors)
+[![Contributors](https://img.shields.io/badge/Contributors-2-green.svg)](https://github.com/jayanthanala/twitter-clone/graphs/contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
