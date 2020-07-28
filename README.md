@@ -115,9 +115,8 @@ Project Link: [https://github.com/jayanthanala/twitter-clone](https://github.com
 
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+## Credits
 
-* []()
-* []()
-* []()
+* Front End * - [@jvadillo](https://github.com/jvadillo/twitter-bootstrap)
+
 
