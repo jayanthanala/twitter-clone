@@ -20,7 +20,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/bitDB",{useNewUrlParser:true,useUnifiedTopology: true});
+//mongoose.connect("mongodb://localhost:27017/bitDB",{useNewUrlParser:true,useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://"+process.env.NAME+":"+process.env.PASS+"@twitterclone.2z57d.mongodb.net/twitterDB?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology: true});
 mongoose.set("useCreateIndex",true);
 
 passport.use(User.createStrategy());
@@ -233,6 +234,6 @@ function authenticated(req,res,next){
     }
 }
 
-app.listen(3000,() => {
+app.listen(process.env.PORT || 3000,() => {
   console.log("Server is up at port 3000");
 })
