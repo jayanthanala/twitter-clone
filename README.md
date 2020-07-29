@@ -58,7 +58,7 @@ A Basic Twitter App with User authentication, User Follow/Unfollow, Tweets, Like
 ## Credits
 
 * Front End  - [@jvadillo](https://github.com/jvadillo)
-* Tweaks - [@vishal-1408](https://github.com/vishal-1408)
+* Backend Tweaks - [@vishal-1408](https://github.com/vishal-1408)
 
 
 
