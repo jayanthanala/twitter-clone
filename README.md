@@ -12,7 +12,7 @@
   <p align="center">
     A Twitter Clone Web App with Basic Functionalities. 
     <br />
-    <a href="https://github.com/jayanthanala/twitter-clone"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/jayanthanala/twitter-clone"><strong>Explore the docs. »</strong></a>
     <br />
     <br />
     <a href="https://mini-twittercl.herokuapp.com/">View Demo</a>
