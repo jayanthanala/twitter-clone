@@ -10,7 +10,7 @@
   <h3 align="center">Mini Twitter Clone</h3>
 
   <p align="center">
-    A Twitter Clone Web App with Basic Functionalities. 
+    A Twitter Clone Web App with Minimal Functionalities. 
     <br />
     <a href="https://github.com/jayanthanala/twitter-clone"><strong>Explore the docs. »</strong></a>
     <br />
