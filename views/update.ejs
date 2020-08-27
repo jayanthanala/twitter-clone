@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title><%=user.name%> | Bitter</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css'>
+  <link rel="stylesheet" href="/css/user.css">
+</head>
+
+<body>
+  <%- include("partials/navbar") %>
+  <li class="tweet-card" style="padding:100px">
+    <div class="tweet-content" style="">
+      <div class="tweet-header">
+        <span class="fullname">
+          <strong><%=user.name%></strong>
+        </span>
+      </div>
+      <div class="tweet-text">
+        <form class="" action="" method="post">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1"></label>
+            <textarea placeholder="<%=tweet.content%>" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"><%=tweet.content%></textarea>
+          </div>
+          <button type="submit" name="button" class="btn btn-follow">Update</button>
+        </form>
+      </div>
+
+    </div>
+  </li>
+</body>

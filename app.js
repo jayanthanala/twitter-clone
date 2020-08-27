@@ -86,6 +86,15 @@ app.get("/search",authenticated,(req,res) => {
   }
 });
 
+app.get("/tweet/update/:id",authenticated,(req,res) => {
+  Tweet.findById(req.params.id,(err,tweet) => {
+    if(err){console.log(err);}
+    else{
+      res.render("update",{tweet:tweet,user:req.user});
+    }
+  })
+})
+
 app.get("/logout",(req,res) => {
   req.logout();
   res.redirect("/")
@@ -210,6 +219,15 @@ app.post("/delete",authenticated,(req,res) =>{
       console.log(err);
     }else{
       res.redirect("/bitter/"+req.user.id);
+    }
+  })
+});
+
+app.post("/tweet/update/:id",authenticated,(req,res) => {
+  Tweet.findOneAndUpdate({_id:req.params.id},{$set:{content:req.body.tweet}},(err) => {
+    if(err){console.log(err);}
+    else{
+      res.redirect("/bitter/"+req.user.id)
     }
   })
 });
