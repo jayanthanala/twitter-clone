@@ -9,10 +9,20 @@
       <img class="tweet-card-avatar" src="https://img2.pngio.com/united-states-avatar-organization-information-png-512x512px-user-avatar-png-820_512.jpg" alt="">
     </a>
     <div class="tweet-text">
-      <form class="" action="/bitter/<%=user.id%>/newtweet" method="post">
+      <form method="post" enctype="multipart/form-data" action="/bitter/<%=user.id%>/newtweet">
         <div class="form-group">
           <label for="exampleFormControlTextarea1"></label>
           <textarea placeholder="What's happening around you.....?" class="form-control" id="exampleFormControlTextarea1" rows="3" name="tweet"></textarea>
+          <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+          <p><label for="file" style="cursor: pointer;"><i class="fas fa-image"></i></label></p>
+          <p><img id="output" width="200" /></p>
+
+          <script>
+            var loadFile = function(event) {
+              var image = document.getElementById('output');
+              image.src = URL.createObjectURL(event.target.files[0]);
+            };
+          </script>
         </div>
         <button type="submit" name="button" class="btn btn-follow">Tweet</button>
       </form>

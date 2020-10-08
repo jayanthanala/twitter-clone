@@ -7,6 +7,9 @@ const tweetSchema = new mongoose.Schema({
   userId:String,
   time:String,
   date:String,
+  bucket:String,
+  key:String,
+  location:String,
   likes:[{type:String}]
 });
 

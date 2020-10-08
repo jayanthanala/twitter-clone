@@ -4,6 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
+const fs = require('fs');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const User = require("./schema/user");
@@ -13,7 +17,7 @@ app.use(express.static('public'));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({
-  secret:process.env.SECRET,
+  secret:"jay",//process.env.SECRET
   resave:false,
   saveUninitialized:false
 }));
@@ -28,6 +32,22 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Aws and Multer config
+const s3 = new aws.S3({
+  accessKeyId: process.env.ACCESS,
+  secretAccessKey: process.env.SECRET
+});
+
+var upload = multer({      //multer({storage:?});
+    storage: multerS3({    //multer({s3,bucket,key:fn(req,file,cb)});  //cb -> callback
+        s3: s3,
+        bucket: 'test-bucket-j',
+        acl: 'public-read',
+        key: function (req, file, cb) {
+            cb(null,Date.now().toString()); //use Date.now() for unique file keys
+        }
+    })
+});
 ////////////////////////////////////////////////////////////////////   GETS    //////////////////////////////////////////////////////////////
 
 app.get("/",(req,res) => {
@@ -35,7 +55,7 @@ app.get("/",(req,res) => {
 });
 
 app.get("/profile",(req,res) => {
-  res.render("profile")
+  res.render("profile");
 });
 
 app.get("/register",(req,res) => {
@@ -92,8 +112,8 @@ app.get("/tweet/update/:id",authenticated,(req,res) => {
     else{
       res.render("update",{tweet:tweet,user:req.user});
     }
-  })
-})
+  });
+});
 
 app.get("/logout",(req,res) => {
   req.logout();
@@ -138,17 +158,55 @@ app.post("/login",(req,res)=>{
   });
 });
 
-app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
-   var d = new Date();
+// app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
+//    var d = new Date();
+//
+//    const tweet = {
+//      content:req.body.tweet,
+//      userHead:req.user.name,
+//      userId:req.user.id,
+//      username:req.user.username,
+//      date: d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
+//      time: d.getHours()+":"+d.getMinutes(),
+//      media:
+//    }
+//
+//    Tweet.create(tweet,(err,status) => {
+//      if(err){
+//        console.log(err);
+//      }else{
+//        //res.redirect("/bitter/"+req.user.id);
+//        res.redirect('back');
+//      }
+//    });
+// });
 
-   const tweet = {
-     content:req.body.tweet,
-     userHead:req.user.name,
-     userId:req.user.id,
-     username:req.user.username,
-     date: d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
-     time: d.getHours()+":"+d.getMinutes()
-   }
+app.post("/bitter/:id/newtweet",upload.array("image",1),authenticated,(req,res)=>{
+   var d = new Date();
+   var tweet = {};
+   console.log(req.files,req.files.length);
+if(req.files.length == 1){
+  tweet = {
+    content:req.body.tweet,
+    userHead:req.user.name,
+    userId:req.user.id,
+    username:req.user.username,
+    date: d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
+    time: d.getHours()+":"+d.getMinutes(),
+    bucket: req.files[0].bucket,
+    location: req.files[0].location,
+    key:req.files[0].key
+  }
+}else{
+  tweet = {
+    content:req.body.tweet,
+    userHead:req.user.name,
+    userId:req.user.id,
+    username:req.user.username,
+    date: d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
+    time: d.getHours()+":"+d.getMinutes()
+  }
+}
    Tweet.create(tweet,(err,status) => {
      if(err){
        console.log(err);
@@ -157,6 +215,8 @@ app.post("/bitter/:id/newtweet",authenticated,(req,res)=>{
        res.redirect('back');
      }
    });
+
+
 });
 
 
